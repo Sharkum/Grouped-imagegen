@@ -4,7 +4,7 @@ then
 fi
 if [ $1 == "post" ]
 then
-    scp $2 psaxena@hpc.bits-hyderabad.ac.in:/scratch/psaxena
+    scp $2 psaxena@hpc.bits-hyderabad.ac.in:/scratch/psaxena/$3
 fi
 if [ $1 == "get" ]
 then
