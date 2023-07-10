@@ -16,24 +16,38 @@ class image_proc:
         self.imgs = []
         return
     
-    def load_imgs(self):
+    def load_imgs(self,limit=None):
         if self.imgs: return
-        for i in os.listdir(self.img_dir):
-            tmp = Image.Image.load(os.path.join(self.img_dir,i))
+        imgs = os.listdir(self.img_dir)
+        if not limit: 
+            samples=len(imgs)
+        else:
+            samples = min(limit,len(imgs))
+        for i in range(samples):
+            tmp = Image.open(os.path.join(self.img_dir,imgs[i]))
+            tmp.load()
             self.imgs.append(tmp)
         return 
     
-    def remove_background(self):
-        self.load_imgs()
+    def remove_background(self,limit=None):
+        print('removing background')
+        self.load_imgs(limit=limit)
         for i in range(len(self.imgs)):
+            if not limit and i%(len(self.imgs)//100) == 0:
+                print(i)
             tmp = self.imgs[i]
+            print(i)
             self.imgs[i] = remove(tmp)
+            print(i)
             self.imgs[i].filename = tmp.filename
         return
     
-    def crop_invis(self):
-        self.load_imgs()
+    def crop_invis(self,limit=None):
+        print('removing invis')
+        self.load_imgs(limit=limit)
         for i in range(len(self.imgs)):
+            if not limit and i%(len(self.imgs)//100) == 0:
+                print(i)
             tmp = self.imgs[i]
             mask = np.array(tmp.split()[-1])>0
             length = np.where(np.any(mask,axis=0))[0]
@@ -49,12 +63,12 @@ class image_proc:
             i.save(os.path.join(self.output_dir,name))
         return
     
-    def proc_save(self,remove_background=False,crop=False,save=True):
+    def proc_save(self,remove_background=False,crop=False,save=True,limit=None):
         #preprocessors-
         if remove_background:
-            self.remove_background()
+            self.remove_background(limit=limit)
         if crop:
-            self.crop_invis()
+            self.crop_invis(limit=limit)
         
         #saving files
         if save:
