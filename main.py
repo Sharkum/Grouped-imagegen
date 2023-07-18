@@ -1,19 +1,16 @@
 import sys
 import datetime
-from classes import *
+from classes.generate_data import image_proc,imagegen
+from classes.splitter import train_val_splitter
 import torch 
+import onnxruntime as ort
 
 
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
     
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    # print(f"Using device: {device}")
-        
-    processor = image_proc('images','procc_images')
-    processor.proc_save(remove_background=True,crop=True,save=True,limit=10)
-    
-    # generator = imagegen('images',8,(1280,720),'backgournd.png','output_dir')
+    splitter = train_val_splitter('output_dir/images','output_dir/labels',output_dir='output_dir')
+    splitter.split()
     
     endtime = datetime.datetime.now()
     print(f'{(endtime-starttime).seconds/3600} hours')

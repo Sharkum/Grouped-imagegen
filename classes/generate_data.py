@@ -1,8 +1,9 @@
-import os
+import os,sys
 import numpy as np
 import pandas as pd
 from PIL import Image
 from rembg import remove
+import shutil
 
 class image_proc:
     '''
@@ -36,9 +37,7 @@ class image_proc:
             if not limit and i%(len(self.imgs)//100) == 0:
                 print(i)
             tmp = self.imgs[i]
-            print(i)
             self.imgs[i] = remove(tmp)
-            print(i)
             self.imgs[i].filename = tmp.filename
         return
     
@@ -49,7 +48,7 @@ class image_proc:
             if not limit and i%(len(self.imgs)//100) == 0:
                 print(i)
             tmp = self.imgs[i]
-            mask = np.array(tmp.split()[-1])>0
+            mask = np.array(tmp.split()[-1])>100
             length = np.where(np.any(mask,axis=0))[0]
             height = np.where(np.any(mask,axis=1))[0]
             box = length[0], height[0], length[-1], height[-1]
@@ -202,6 +201,9 @@ class imagegen:
             labels.append(img.label)
             
             mask = img_resized.split()[-1]
+            arr=np.array(mask)
+            arr[arr<100] = 0
+            mask = Image.fromarray(arr)
             
             output.paste(img_resized,position,mask=mask)
         
@@ -241,3 +243,4 @@ class imagegen:
         self.generate_batch(1,3)
 
         return 
+

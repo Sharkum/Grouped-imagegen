@@ -9,4 +9,4 @@
 #SBATCH --mail-user=sharanhpc@gmail.com
 #SBATCH --mail-type=ALL
 
-.environment/bin/python3 -u main.py
+../.environment/bin/python3 -u tools/train.py --batch $batch_size --conf configs/yolov6s_finetune.py --data data.yaml --device 0

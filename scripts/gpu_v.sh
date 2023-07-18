@@ -9,8 +9,4 @@
 #SBATCH --mail-user=sharanhpc@gmail.com
 #SBATCH --mail-type=ALL
 
-spack load anaconda3@2022
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home//psaxena/.conda/envs/Imageproc/lib/
-source activate Imageproc
-
-python3 -u main.py > output.txt
+.environment/bin/python3 -u main.py

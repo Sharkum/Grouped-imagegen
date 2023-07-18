@@ -9,4 +9,4 @@
 #SBATCH --mail-user=sharanhpc@gmail.com
 #SBATCH --mail-type=ALL
 
-.environment/bin/python3 -u main.py
+../.environment/bin/python3 -u train.py --cfg yolov5s.yaml --batch $batches --epochs $epochs --data data.yaml
