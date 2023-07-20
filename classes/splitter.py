@@ -2,7 +2,8 @@ import os,shutil
 import numpy as np
 
 class train_val_splitter:
-    ''' This class is used to split a folder images into train,val,test splits
+    ''' 
+    This class is used to split a folder images into train,val,test splits
     '''
     def __init__(self, images,labels, output_dir):
         self.images = images
