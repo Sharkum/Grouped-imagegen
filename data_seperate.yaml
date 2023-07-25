@@ -1,0 +1,6 @@
+train: ./output_dir_2/images/train
+val: ./output_dir_2/images/val
+test: ./output_dir_2/images/test
+
+nc: 8
+names: ['empty','PET','PE-HD','PVC','PE-LD','PP','PS','other']

@@ -1,5 +1,7 @@
 import os,shutil
 import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
 class train_val_splitter:
     ''' 
@@ -16,6 +18,13 @@ class train_val_splitter:
             os.mkdir(output_dir)
         for file in files:
             shutil.move(os.path.join(input_dir,file),output_dir)
+        pass
+    
+    def cp_files(self,input_dir,files,output_dir):
+        if not os.path.exists(output_dir):
+            os.mkdir(output_dir)
+        for file in files:
+            shutil.copy(os.path.join(input_dir,file),output_dir)
         pass
     
     def split(self,seed = 0,train=0.6,val=0.2):
@@ -45,3 +54,17 @@ class train_val_splitter:
                 self.mv_files(input_dir, split_names[i][split],os.path.join(output_dir,split))
         
         pass
+    
+    def proc_split(self,seed=0,train=0.6,val=0.5):
+        np.random.seed(seed)
+        images = pd.Series(os.listdir(self.images))
+        labels = images.str[7].astype('int64')
+        train_imgs,test_imgs,train_lbls,test_lbls = train_test_split(images,labels,train_size=train,stratify=labels)
+        val_imgs,test_imgs = train_test_split(test_imgs,test_size=(1-val),stratify=test_lbls)
+        
+        self.cp_files(self.images,train_imgs,os.path.join(self.output_dir,'train'))
+        self.cp_files(self.images,test_imgs,os.path.join(self.output_dir,'test'))
+        self.cp_files(self.images,val_imgs,os.path.join(self.output_dir,'val'))
+        
+        return
+        

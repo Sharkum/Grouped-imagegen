@@ -80,7 +80,7 @@ class imagegen:
     This image generator will generate images based on random selection of images
     '''
 
-    def __init__(self,img_dir,max_imgs,output_dim, background=None,output_dir=None):
+    def __init__(self,img_dir, dataset,max_imgs,output_dim, background=None,output_dir=None):
         self.n_imgs = 0
         self.imgs_selected = []
         self.imgs = []
@@ -88,6 +88,7 @@ class imagegen:
         self.max_imgs = max_imgs
         self.img_dir = img_dir
         self.output_dim = output_dim
+        self.dataset = dataset
         self.background = background
         self.output_dir = output_dir
         if self.background:
@@ -138,7 +139,7 @@ class imagegen:
 
         return True
         
-    def get_position(self, canvas_size,img_size, possible_positions,positions_excluded):
+    def get_position(self, canvas_size,img_size, possible_positions,positions_excluded,output=None):
         
         pos_bound = canvas_size[0] - img_size[0], \
                     canvas_size[1] - img_size[1]        
@@ -192,7 +193,7 @@ class imagegen:
             
             possible_positions = np.dstack(np.meshgrid(range(pos_bound[0]),range(pos_bound[1]))).reshape(-1,2).tolist()
             
-            position = self.get_position(canvas.size,new_size, possible_positions, positions_excluded)
+            position = self.get_position(canvas.size,new_size, possible_positions, positions_excluded,output=output)
             
             if not position:
                 continue
@@ -226,14 +227,23 @@ class imagegen:
             if not os.path.exists(self.output_dir):
                 os.mkdir(self.output_dir)
             
-            images_path = self.output_dir + '/images'
-            labels_path = self.output_dir + '/labels'
+            images_path = self.output_dir + '/images' 
+            labels_path = self.output_dir + '/labels' 
             
             if not os.path.exists(images_path):
                 os.mkdir(images_path)
             if not os.path.exists(labels_path):
                 os.mkdir(labels_path)
             
+            images_path = os.path.join(images_path,self.dataset)
+            labels_path = os.path.join(labels_path,self.dataset)
+            
+            if not os.path.exists(images_path):
+                os.mkdir(images_path)
+            if not os.path.exists(labels_path):
+                os.mkdir(labels_path)
+            
+            # display(new_img)
             new_img.save(f'{images_path}/{seed}_{i}.jpg')
             np.savetxt(f'{labels_path}/{seed}_{i}.txt',annots,fmt='%1.16f')
             

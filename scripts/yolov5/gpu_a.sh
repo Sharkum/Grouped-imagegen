@@ -9,5 +9,5 @@
 #SBATCH --mail-user=sharanhpc@gmail.com
 #SBATCH --mail-type=ALL
 
-# ../.environment/bin/python3 train.py --cfg yolov5s.yaml --batch $batches --epochs $epochs --data data.yaml --img 1280 --name yolov5s_with_background
-../.environment/bin/python3 val.py --weights ./runs/train/yolov5s_with_background2/weights/best.pt --img 1280 --data data.yaml --task test
+# ../.environment/bin/python3 train.py --cfg yolov5s.yaml --batch $batches --epochs $epochs --data data_seperate.yaml --img 1280 --name seperate_test_train
+../.environment/bin/python3 val.py --weights ./runs/train/seperate_test_train3/weights/best.pt --img 1280 --data data_seperate.yaml --task test --name test_seperate
