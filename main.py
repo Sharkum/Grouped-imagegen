@@ -16,7 +16,7 @@ def generate_images(input_dir,set,background,output_dir,size=15000):
         generator.generate_batch(seed=seed,batch_size=size,verbose=True)
         
 def generate_overlapping_images(overlap_perc,input_dir,set,background,output_dir,size=15000,seeding=True):
-    generator = overlap_gen(f'{input_dir}/{set}',set,set,4,(1280,720),overlap_perc,background,f'{output_dir}')
+    generator = overlap_gen(f'{input_dir}/{set}',set,8,(1280,720),overlap_perc,background,f'{output_dir}')
     if seeding:
         with open('seed','r+') as f:
             seed = int(f.readline())
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     starttime = datetime.datetime.now()
     
     # split_input_images('procc_images','labels','procc_images')
-    generate_overlapping_images(0.2,'processed_imgs','train','backgournd.png','output_dir_2',size=100)
+    generate_overlapping_images(0.2,'procc_images','train','background.png','overlapping_images')
     
     endtime = datetime.datetime.now()
     print(f'{(endtime-starttime).seconds/3600} hours')
