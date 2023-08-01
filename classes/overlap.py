@@ -2,10 +2,14 @@ from .generate_data import imagegen
 import numpy as np
 class overlap_gen(imagegen):
     
-    def __init__(self, img_dir, dataset, max_imgs, output_dim, overlap_perc, background=None, output_dir=None):
+    def __init__(self, img_dir, dataset, max_imgs, output_dim, background=None, output_dir=None):
         super().__init__(img_dir, dataset, max_imgs, output_dim, background, output_dir)
-        self.overlap_perc = overlap_perc
+        self.overlap_perc = 0.1
         return
+    
+    def get_overlap_perc(self):
+        self.overlap_perc = np.random.choice(np.arange(0.1,0.9,0.1),1)[0]
+        pass
     
     def possible_pos_for_overlap_perc(self,position,img_size,img2_size,corner):
         
@@ -47,6 +51,7 @@ class overlap_gen(imagegen):
                         canvas_size[1] - img_size[1] 
                     
             corners = list(range(4))
+            self.get_overlap_perc()
             
             while True:
                 corner = np.random.choice(corners,1)[0]

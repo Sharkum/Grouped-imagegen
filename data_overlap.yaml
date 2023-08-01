@@ -1,0 +1,6 @@
+train: ./overlapping_images/images/train
+val: ./overlapping_images/images/val
+test: ./overlapping_images/images/test
+
+nc: 8
+names: ['empty','PET','PE-HD','PVC','PE-LD','PP','PS','other']
