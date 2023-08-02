@@ -246,8 +246,9 @@ class imagegen:
             # display(new_img)
             new_img.save(f'{images_path}/{seed}_{i}.jpg')
             np.savetxt(f'{labels_path}/{seed}_{i}.txt',annots,fmt='%1.16f')
-            
-        return
+            if hasattr(self,'overlapped'):
+                print(self.overlap_perc)
+        pass
 
     def test_resize(self,verbose=False):
         self.generate_batch(1,3)
