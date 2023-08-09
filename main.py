@@ -35,7 +35,7 @@ if __name__ == '__main__':
     starttime = datetime.datetime.now()
     
     # split_input_images('procc_images','labels','procc_images')
-    generate_overlapping_images('procc_images','train','background.png','random_overlapping_images')
+    generate_overlapping_images('procc_images','test','background.png','random_overlapping_images')
     
     endtime = datetime.datetime.now()
     print(f'{(endtime-starttime).seconds/3600} hours')
