@@ -2,5 +2,5 @@ train: ../random_overlapping_images/images/train
 val: ../random_overlapping_images/images/val
 test: ../random_overlapping_images/images/test
 
-nc: 8
-names: ['empty','PET','PE-HD','PVC','PE-LD','PP','PS','other']
+nc: 5
+names: ['PET','PE-HD','PP','PS','other']

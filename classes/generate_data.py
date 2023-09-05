@@ -30,22 +30,22 @@ class image_proc:
             self.imgs.append(tmp)
         return 
     
-    def remove_background(self,limit=None):
+    def remove_background(self,limit=None,verbose=False):
         print('removing background')
         self.load_imgs(limit=limit)
         for i in range(len(self.imgs)):
-            if not limit and i%(len(self.imgs)//100) == 0:
+            if verbose and not limit and i%(len(self.imgs)//100) == 0:
                 print(i)
             tmp = self.imgs[i]
             self.imgs[i] = remove(tmp)
             self.imgs[i].filename = tmp.filename
         return
     
-    def crop_invis(self,limit=None):
+    def crop_invis(self,limit=None, verbose=False):
         print('removing invis')
         self.load_imgs(limit=limit)
         for i in range(len(self.imgs)):
-            if not limit and i%(len(self.imgs)//100) == 0:
+            if verbose and not limit and i%(len(self.imgs)//100) == 0:
                 print(i)
             tmp = self.imgs[i]
             mask = np.array(tmp.split()[-1])>100
@@ -62,7 +62,7 @@ class image_proc:
             i.save(os.path.join(self.output_dir,name))
         return
     
-    def proc_save(self,remove_background=False,crop=False,save=True,limit=None):
+    def proc_save(self,remove_background=False,crop=False,save=True,limit=None,verbose=False):
         #preprocessors-
         if remove_background:
             self.remove_background(limit=limit)
