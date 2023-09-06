@@ -7,7 +7,7 @@ import torch
 import onnxruntime as ort
 
 def generate_images(input_dir,set,background,output_dir,size=15000):
-    generator = imagegen(f'{input_dir}/{set}',8,(1280,720),background,f'{output_dir}/{set}')
+    generator = imagegen(f'{input_dir}/{set}',set,4,(1280,720),background,f'{output_dir}')
     with open('seed','r+') as f:
         seed = int(f.readline())
         f.seek(0)
@@ -16,7 +16,7 @@ def generate_images(input_dir,set,background,output_dir,size=15000):
         generator.generate_batch(seed=seed,batch_size=size,verbose=True)
         
 def generate_overlapping_images(input_dir,set,background,output_dir,size=15000,seeding=True):
-    generator = overlap_gen(f'{input_dir}/{set}',set,8,(1280,720),background,f'{output_dir}')
+    generator = overlap_gen(f'{input_dir}/{set}',set,4,(1280,720),background,f'{output_dir}')
     if seeding:
         with open('seed','r+') as f:
             seed = int(f.readline())

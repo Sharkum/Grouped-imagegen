@@ -1,7 +1,7 @@
 import os,sys
 import numpy as np
 import pandas as pd
-from PIL import Image
+from PIL import Image, ImageOps
 from rembg import remove
 import shutil
 
@@ -205,8 +205,11 @@ class imagegen:
             arr=np.array(mask)
             arr[arr<100] = 0
             mask = Image.fromarray(arr)
+
+            mask = ImageOps.expand(mask,border=8,fill=255)
+            img_resized = ImageOps.expand(img_resized,border=8,fill=100)
             
-            output.paste(img_resized,position,mask=mask)
+            output.paste(img_resized,position[:2],mask=mask)
         
         return output, np.array(self.pascal_to_yolo_bbox(positions_excluded,self.output_dim[0],self.output_dim[1])), np.array(labels)
     
