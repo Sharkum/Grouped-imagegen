@@ -81,5 +81,5 @@ class overlap_gen(imagegen):
 
     def resize_position_imgs(self, imgs, canvas):
         self.overlapped = False
+        
         return super().resize_position_imgs(imgs, canvas)
-    

@@ -1,0 +1,12 @@
+Class                 Images      Labels     P@.5iou     R@.5iou    F1@.5iou      mAP@.5  mAP@.5:.95
+all                    15000       67192       0.801       0.822        0.81       0.852       0.759
+PET                    15000       36985       0.928       0.947       0.937       0.972       0.888
+PE-HD                  15000       10036       0.894       0.928        0.91       0.958       0.889
+PP                     15000       10809       0.843       0.844       0.843       0.901       0.793
+PS                     15000        8728        0.84       0.956       0.894       0.943       0.884
+other                  15000         634       0.501       0.434       0.465       0.483       0.338
+
+Evaluating speed.
+Average pre-process time: 0.07 ms
+Average inference time: 1.24 ms
+Average NMS time: 0.85 ms
